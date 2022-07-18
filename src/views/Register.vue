@@ -6,23 +6,38 @@
           <div v-if="error" class="alert alert-danger" role="alert">
             {{ error }}
           </div>
-          <h1>Login</h1>
-          <form id="form" @submit.prevent="login()">
+          <h1>Register</h1>
+          <form id="form" @submit.prevent="register()">
             <input
               type="email"
               placeholder="Your Email"
               class="mb-3 form-control"
               v-model="user.email"
             />
+            <p class="text-danger" v-if="validation.email">
+              {{ validation.email[0] }}
+            </p>
+            <input
+              type="text"
+              placeholder="Your Name"
+              class="mb-3 form-control"
+              v-model="user.name"
+            />
+            <p class="text-danger" v-if="validation.name">
+              {{ validation.name[0] }}
+            </p>
             <input
               type="password"
               placeholder="Your password"
               class="mb-3 form-control"
               v-model="user.password"
             />
+            <p class="text-danger" v-if="validation.password">
+              {{ validation.password[0] }}
+            </p>
             <p>
-              Dont Have An Account
-              <router-link to="/register">Click Here</router-link>
+              Have Account?
+              <router-link to="/login">Click Here</router-link>
             </p>
             <button class="btn btn-primary">Submit</button>
           </form>
@@ -38,27 +53,27 @@ export default {
   data() {
     return {
       user: {},
-      error: "",
+      validation: {},
     };
   },
   methods: {
-    login() {
+    register() {
       let dataForm = new FormData(form);
       axios
-        .post("http://127.0.0.1:8000/api/auth/login", this.user)
+        .post("http://127.0.0.1:8000/api/auth/register", this.user)
         .then((res) => {
-          this.$toast.success("successfulyy Logged In", {
+          this.$toast.success("Register Succesfully", {
             type: "success",
             position: "top-right",
             duration: 3000,
             dismissable: true,
             // all of other options may go here
           });
-          this.$route.push("/dashboard");
+          this.$router.push("/login");
           // console.log(res);
         })
         .catch((err) => {
-          this.error = err.response.data.error;
+          this.validation = err.response.data;
         });
     },
   },

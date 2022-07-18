@@ -1,22 +1,26 @@
 <template>
-  <form @submit.prevent="KategoriSubmit()">
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label"
-        >Email address</label
-      >
-      <input
-        type="text"
-        class="form-control"
-        id="exampleFormControlInput1"
-        placeholder="name@example.com"
-        v-model="kategori.nama_kategori"
-      />
-      <div v-if="validation.nama_kategori" class="mt-2 alert alert-danger">
-        {{ validation.nama_kategori[0] }}
-      </div>
+  <div class="container">
+    <div class="card">
+      <form @submit.prevent="KategoriSubmit()">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Email address</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+            placeholder="name@example.com"
+            v-model="kategori.nama_kategori"
+          />
+          <div v-if="validation.nama_kategori" class="mt-2 alert alert-danger">
+            {{ validation.nama_kategori[0] }}
+          </div>
+        </div>
+        <button class="btn btn-primary">Save</button>
+      </form>
     </div>
-    <button class="btn btn-primary">Save</button>
-  </form>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -37,12 +41,15 @@ export default {
       axios
         .post(url, this.kategori)
         .then((response) => {
-          this.$toast.success(response.data.message, {
-            type: "success",
-            position: "top-right",
-            duration: 3000,
-            dismissable: true,
-            // all of other options may go here
+          this.$router.push("/kategori");
+          this.$swal({
+            position: "top-end",
+            icon: "success",
+            title: "Kategori Berhasil Dibuat",
+            showConfirmButton: false,
+            width: "40px",
+            timer: 3000,
+            timerProgressBar: true,
           });
           // console.log(response);
         })

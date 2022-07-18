@@ -6,6 +6,9 @@ import HomeView from '../views/HomeView.vue'
 import CreateKategori from '../views/CreateKategori.vue'
 import dashboard from '../views/dashboard.vue'
 import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
+import ListKategori from '../views/ListKategori.vue'
+import editKategori from '../views/editKategori.vue'
 
 const routes = [{
     path: '/',
@@ -34,6 +37,21 @@ const routes = [{
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
+  },
+  {
+    path: '/kategori',
+    name: 'kategori',
+    component: ListKategori
+  },
+  {
+    path: '/edit/:id',
+    name: 'edit',
+    component: editKategori
   }
 ]
 
